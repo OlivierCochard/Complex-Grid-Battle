@@ -6,10 +6,10 @@ $ ant [javadoc, runTests, run]
 
 # Images
 <table>
-	<img src="Images/game_3_1.png" width="100%"/>
+	<img src="images/game_3_1.png" width="100%"/>
   <tr>
-  	<td><img src="Images/game_3_2.png" width="300"/></td>
-    <td><img src="Images/game_3_3.png" width="300"/></td>
-    <td><img src="Images/game_3_4.png" width="300"/></td>
+  	<td><img src="images/game_3_2.png" width="300"/></td>
+    <td><img src="images/game_3_3.png" width="300"/></td>
+    <td><img src="images/game_3_4.png" width="300"/></td>
   </tr>
 </table>
