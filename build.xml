@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="projet-Build" default="run">
+    <target name="compile">
+        <ant antfile="build.xml" dir="src/outilsJeu" target="jar"/>
+        <ant antfile="build.xml" dir="src/entitesJeu" target="jar"/>
+        <ant antfile="build.xml" dir="src/combatJeu" target="jar"/>
+    </target>
+
+    <target name="javadoc" depends="compile">
+        <mkdir dir="doc"/>
+        <javadoc sourcepath="src" destdir="doc">
+            <fileset dir="src">
+                <include name="**/*.java"/>
+            </fileset>
+            <arg value="-author"/>
+            <arg value="-version"/>
+            <arg value="-encoding"/>
+            <arg value="UTF-8"/>
+            <arg value="-windowtitle"/>
+            <arg value="MonProjet Documentation"/>
+            <arg value="-doctitle"/>
+            <arg value="Documentation de MonProjet"/>
+        </javadoc>
+    </target>
+
+    <target name="copy-ressources" depends="compile">
+        <mkdir dir="dist/lib"/>
+        <copy file="src/entitesJeu/dist/entitesJeu.jar" tofile="dist/lib/entitesJeu.jar"/>
+        <copy file="src/outilsJeu/dist/outilsJeu.jar" tofile="dist/lib/outilsJeu.jar"/>
+        <copy file="src/combatJeu/dist/combatJeu.jar" tofile="dist/lib/combatJeu.jar"/>
+    </target>
+
+    <target name="jar" depends="copy-ressources">
+        <echo file="dist/lib/MANIFEST.MF">Main-Class: combatJeu.ClassePrincipale</echo>
+        <jar destfile="dist/lib/ProjetJeu.jar" manifest="dist/lib/MANIFEST.MF">
+            <fileset dir="src/combatJeu/build/classes"/>
+            <fileset dir="src/outilsJeu/build/classes"/>
+            <fileset dir="src/entitesJeu/build/classes"/>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="dist/lib/ProjetJeu.jar" fork="true">
+            <classpath>
+                <pathelement path="dist/lib/entitesJeu.jar"/>
+                <pathelement path="dist/lib/outilsJeu.jar"/>
+                <pathelement path="dist/lib/combatJeu.jar"/>
+                <pathelement path="dist/lib/ProjetJeu.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="runTests" depends="jar">
+        <ant antfile="build.xml" dir="src/outilsJeu" target="runTests"/>
+        <ant antfile="build.xml" dir="src/entitesJeu" target="runTests"/>
+        <ant antfile="build.xml" dir="src/combatJeu" target="runTests"/>
+    </target>
+
+</project>

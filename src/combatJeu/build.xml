@@ -1,0 +1,118 @@
+<project name="combatJeu-build" default="run">
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="dist"/>
+    </target>
+
+    <target name="copy-jar" depends="clean">
+        <mkdir dir="dist/lib"/>
+        <copy file="../entitesJeu/dist/entitesJeu.jar" tofile="dist/lib/entitesJeu.jar"/>
+        <copy file="../outilsJeu/dist/outilsJeu.jar" tofile="dist/lib/outilsJeu.jar"/>
+    </target>
+
+    <target name="compile" depends="copy-jar">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src/combatJeu" destdir="build/classes" includeantruntime="false">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="compileTest" depends="compile">
+        <mkdir dir="build/tests"/>
+        <javac srcdir="test/combatJeu" destdir="build/tests" includeantruntime="false">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="copy-resources" depends="compileTest">
+        <copy file="../../dist/gameSettings.properties"
+              todir="build/classes/combatJeu"/>
+    </target>
+
+    <target name="jar" depends="copy-resources">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/combatJeu.jar" basedir="build/classes/"/>
+    </target>
+
+    <target name="all" depends="jar"/>
+
+    <!--TESTS-->
+    <target name="runTests" depends="all">
+        <echo message="Exécution de tous les tests..."/>
+        <java classname="combatJeu.GameSettingsTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.controlleur.GeneralControlleurTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.modele.CoordonneeTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.modele.PlateauJeuTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.modele.ordinateur.NoeudTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.modele.ordinateur.PathFindingTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+        <java classname="combatJeu.modele.carte.CarteTest" fork="true">
+            <classpath>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+    </target>
+    <!--JEU-->
+    <target name="run" depends="all">
+        <java classname="combatJeu.ClassePrincipale" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./dist/lib/entitesJeu.jar"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+    </target>
+</project>
+

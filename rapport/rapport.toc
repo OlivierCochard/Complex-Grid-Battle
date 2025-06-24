@@ -1,0 +1,30 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Spécifications et Conception}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Diagramme des cas d'utilisation}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Spécifications principales}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Algorithme, stratégies et factories}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Algorithme}{3}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}PathFinding a*}{3}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Stratégies}{3}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Carte génération}{3}{subsubsection.3.2.1}%
+\contentsline {paragraph}{Equilibré}{3}{paragraph*.1}%
+\contentsline {paragraph}{Chaos}{4}{paragraph*.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}Intelligence ordinateur}{4}{subsubsection.3.2.2}%
+\contentsline {paragraph}{Offensive}{4}{paragraph*.3}%
+\contentsline {paragraph}{Défensive}{4}{paragraph*.4}%
+\contentsline {subsection}{\numberline {3.3}Factories}{4}{subsection.3.3}%
+\contentsline {paragraph}{Combattant}{4}{paragraph*.5}%
+\contentsline {paragraph}{Carte}{5}{paragraph*.6}%
+\contentsline {section}{\numberline {4}Amélioration effectués}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Map factory}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Délai d'action}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Statistiques unique pour chaque type de combattants}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Eau}{6}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Fichier de paramétrage}{6}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Intelligence artificielle}{6}{subsection.4.6}%
+\contentsline {paragraph}{Offensive}{6}{paragraph*.7}%
+\contentsline {paragraph}{Défensive}{6}{paragraph*.8}%
+\contentsline {subsection}{\numberline {4.7}PathFinding}{6}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Super build.xml}{7}{subsection.4.8}%
+\contentsline {section}{\numberline {5}Conclusion}{7}{section.5}%

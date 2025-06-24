@@ -1,0 +1,513 @@
+package combatJeu.modele.carte;
+
+import combatJeu.GameSettings;
+import combatJeu.modele.PlateauJeu;
+import combatJeu.modele.carte.Carte;
+import combatJeu.modele.Coordonnee;
+import entitesJeu.objets.PastilleEnergetique;
+import entitesJeu.obstacles.Combattant;
+import entitesJeu.obstacles.Mur;
+import entitesJeu.obstacles.Eau;
+
+import java.util.*;
+import java.util.Random;
+
+public class CarteFactory {
+
+	public static Carte creerCarte(PlateauJeu plateauJeu, int nombreEntites, int nombreVraiJoueur, List<String> listeNomVraiJoueur, List<String> listeTypeVraiJoueur) {
+	    Carte carte = null;
+	    
+	    //CARTE POUR DEUX JOUEURS
+	    if (nombreEntites == 2) {
+	        carte = new Carte(15, 7, nombreVraiJoueur, plateauJeu);
+
+	        //MUR
+	        for (int x = 0; x < carte.getTailleX(); x++) {
+	            carte.setObstacle(x, 0, new Mur());
+	            carte.setObstacle(x, 6, new Mur());
+	        }
+	        carte.setObstacle(0, 1, new Mur());
+	        carte.setObstacle(1, 1, new Mur());
+	        carte.setObstacle(14, 1, new Mur());
+	        carte.setObstacle(13, 1, new Mur());
+	        carte.setObstacle(0, 5, new Mur());
+	        carte.setObstacle(1, 5, new Mur());
+	        carte.setObstacle(7, 1, new Mur());
+	        carte.setObstacle(7, 5, new Mur());
+	        carte.setObstacle(13, 5, new Mur());
+	        carte.setObstacle(14, 5, new Mur());
+	        //EAU
+	        carte.setObstacle(0, 2, new Eau());
+	        carte.setObstacle(0, 3, new Eau());
+	        carte.setObstacle(0, 4, new Eau());
+	        carte.setObstacle(14, 2, new Eau());
+	        carte.setObstacle(14, 3, new Eau());
+	        carte.setObstacle(14, 4, new Eau());
+	        carte.setObstacle(4, 2, new Eau());
+	        carte.setObstacle(4, 3, new Eau());
+	        carte.setObstacle(4, 4, new Eau());
+	        carte.setObstacle(10, 2, new Eau());
+	        carte.setObstacle(10, 3, new Eau());
+	        carte.setObstacle(10, 4, new Eau());
+	        //PASTILLE
+	        PastilleEnergetique pastille = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(7, 3, pastille);
+	    	//APPARITION
+	    	List<Coordonnee> listeCoordonneeApparition = new ArrayList<>();
+	    	listeCoordonneeApparition.add(new Coordonnee(2, 3));
+	    	listeCoordonneeApparition.add(new Coordonnee(12, 3));
+	    	carte.setCoordonneeApparition(listeCoordonneeApparition);
+	    }
+	    //CARTE POUR QUATRE JOUEURS
+	    else if (nombreEntites == 4){
+	    	carte = new Carte(15, 15, nombreVraiJoueur, plateauJeu);
+
+	    	//MUR
+	    	carte.setObstacle(0, 0, new Mur());
+	    	carte.setObstacle(1, 0, new Mur());
+	    	carte.setObstacle(5, 0, new Mur());
+	    	carte.setObstacle(6, 0, new Mur());
+	    	carte.setObstacle(7, 0, new Mur());
+	    	carte.setObstacle(8, 0, new Mur());
+	    	carte.setObstacle(9, 0, new Mur());
+	    	carte.setObstacle(13, 0, new Mur());
+	    	carte.setObstacle(14, 0, new Mur());
+	    	carte.setObstacle(0, 1, new Mur());
+	    	carte.setObstacle(1, 1, new Mur());
+	    	carte.setObstacle(2, 1, new Mur());
+	    	carte.setObstacle(3, 1, new Mur());
+	    	carte.setObstacle(6, 1, new Mur());
+	    	carte.setObstacle(7, 1, new Mur());
+	    	carte.setObstacle(8, 1, new Mur());
+	    	carte.setObstacle(11, 1, new Mur());
+	    	carte.setObstacle(12, 1, new Mur());
+	    	carte.setObstacle(13, 1, new Mur());
+	    	carte.setObstacle(14, 1, new Mur());
+	    	carte.setObstacle(1, 2, new Mur());
+	    	carte.setObstacle(13, 2, new Mur());
+	    	carte.setObstacle(1, 3, new Mur());
+	    	carte.setObstacle(13, 3, new Mur());
+	    	carte.setObstacle(6, 4, new Mur());
+	    	carte.setObstacle(7, 4, new Mur());
+	    	carte.setObstacle(8, 4, new Mur());
+	    	carte.setObstacle(0, 5, new Mur());
+	    	carte.setObstacle(7, 5, new Mur());
+	    	carte.setObstacle(14, 5, new Mur());
+	    	carte.setObstacle(0, 6, new Mur());
+	    	carte.setObstacle(1, 6, new Mur());
+	    	carte.setObstacle(4, 6, new Mur());
+	    	carte.setObstacle(10, 6, new Mur());
+	    	carte.setObstacle(13, 6, new Mur());
+	    	carte.setObstacle(14, 6, new Mur());
+	    	carte.setObstacle(0, 7, new Mur());
+	    	carte.setObstacle(1, 7, new Mur());
+	    	carte.setObstacle(4, 7, new Mur());
+	    	carte.setObstacle(5, 7, new Mur());
+	    	carte.setObstacle(9, 7, new Mur());
+	    	carte.setObstacle(10, 7, new Mur());
+	    	carte.setObstacle(13, 7, new Mur());
+	    	carte.setObstacle(14, 7, new Mur());
+	    	carte.setObstacle(0, 8, new Mur());
+	    	carte.setObstacle(1, 8, new Mur());
+	    	carte.setObstacle(4, 8, new Mur());
+	    	carte.setObstacle(10, 8, new Mur());
+	    	carte.setObstacle(13, 8, new Mur());
+	    	carte.setObstacle(14, 8, new Mur());
+	    	carte.setObstacle(0, 9, new Mur());
+	    	carte.setObstacle(7, 9, new Mur());
+	    	carte.setObstacle(14, 9, new Mur());
+	    	carte.setObstacle(6, 10, new Mur());
+	    	carte.setObstacle(7, 10, new Mur());
+	    	carte.setObstacle(8, 10, new Mur());
+	    	carte.setObstacle(1, 11, new Mur());
+	    	carte.setObstacle(13, 11, new Mur());
+	    	carte.setObstacle(1, 12, new Mur());
+	    	carte.setObstacle(13, 12, new Mur());
+	    	carte.setObstacle(0, 13, new Mur());
+	    	carte.setObstacle(1, 13, new Mur());
+	    	carte.setObstacle(2, 13, new Mur());
+	    	carte.setObstacle(3, 13, new Mur());
+	    	carte.setObstacle(6, 13, new Mur());
+	    	carte.setObstacle(7, 13, new Mur());
+	    	carte.setObstacle(8, 13, new Mur());
+	    	carte.setObstacle(11, 13, new Mur());
+	    	carte.setObstacle(12, 13, new Mur());
+	    	carte.setObstacle(13, 13, new Mur());
+	    	carte.setObstacle(14, 13, new Mur());
+	    	carte.setObstacle(0, 14, new Mur());
+	    	carte.setObstacle(1, 14, new Mur());
+	    	carte.setObstacle(5, 14, new Mur());
+	    	carte.setObstacle(6, 14, new Mur());
+	    	carte.setObstacle(7, 14, new Mur());
+	    	carte.setObstacle(8, 14, new Mur());
+	    	carte.setObstacle(9, 14, new Mur());
+	    	carte.setObstacle(13, 14, new Mur());
+	    	carte.setObstacle(14, 14, new Mur());
+	    	//EAU
+	    	carte.setObstacle(2, 0, new Eau());
+	    	carte.setObstacle(3, 0, new Eau());
+	    	carte.setObstacle(4, 0, new Eau());
+	    	carte.setObstacle(12, 0, new Eau());
+	    	carte.setObstacle(11, 0, new Eau());
+	    	carte.setObstacle(10, 0, new Eau());
+	    	carte.setObstacle(0, 2, new Eau());
+	    	carte.setObstacle(14, 2, new Eau());
+	    	carte.setObstacle(0, 3, new Eau());
+	    	carte.setObstacle(14, 3, new Eau());
+	    	carte.setObstacle(0, 4, new Eau());
+	    	carte.setObstacle(14, 4, new Eau());
+	    	carte.setObstacle(0, 10, new Eau());
+	    	carte.setObstacle(14, 10, new Eau());
+	    	carte.setObstacle(0, 11, new Eau());
+	    	carte.setObstacle(14, 11, new Eau());
+	    	carte.setObstacle(0, 12, new Eau());
+	    	carte.setObstacle(14, 12, new Eau());
+	    	carte.setObstacle(2, 14, new Eau());
+	    	carte.setObstacle(3, 14, new Eau());
+	    	carte.setObstacle(4, 14, new Eau());
+	    	carte.setObstacle(12, 14, new Eau());
+	    	carte.setObstacle(11, 14, new Eau());
+	    	carte.setObstacle(10, 14, new Eau());
+	    	//PASTILLE
+	        PastilleEnergetique pastille = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(7, 7, pastille);
+	    	//APPARITION
+	    	List<Coordonnee> listeCoordonneeApparition = new ArrayList<>();
+	    	listeCoordonneeApparition.add(new Coordonnee(3, 3));
+	    	listeCoordonneeApparition.add(new Coordonnee(3, 11));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 3));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 11));
+	    	carte.setCoordonneeApparition(listeCoordonneeApparition);
+	    }
+	    //CARTE POUR SIX JOUEURS
+	    else if (nombreEntites == 6){
+	    	carte = new Carte(15, 23, nombreVraiJoueur, plateauJeu);
+
+	    	//MUR
+	    	for (int x = 0; x < carte.getTailleX(); x++) {
+	            carte.setObstacle(x, 0, new Mur());
+	            carte.setObstacle(x, 22, new Mur());
+	        }
+	        for (int y = 1; y < carte.getTailleY() - 1; y++) {
+	            carte.setObstacle(0, y, new Mur());
+	            carte.setObstacle(14, y, new Mur());
+	        }
+	        carte.setObstacle(1, 1, new Mur());
+	        carte.setObstacle(5, 1, new Mur());
+	        carte.setObstacle(6, 1, new Mur());
+	        carte.setObstacle(7, 1, new Mur());
+	        carte.setObstacle(8, 1, new Mur());
+	        carte.setObstacle(9, 1, new Mur());
+	        carte.setObstacle(13, 1, new Mur());
+	        carte.setObstacle(6, 2, new Mur());
+	        carte.setObstacle(7, 2, new Mur());
+	        carte.setObstacle(8, 2, new Mur());
+	        carte.setObstacle(6, 3, new Mur());
+	        carte.setObstacle(7, 3, new Mur());
+	        carte.setObstacle(8, 3, new Mur());
+	        carte.setObstacle(7, 4, new Mur());
+	        carte.setObstacle(7, 5, new Mur());
+	        carte.setObstacle(7, 6, new Mur());
+	        carte.setObstacle(7, 11, new Mur());
+	        carte.setObstacle(7, 16, new Mur());
+	        carte.setObstacle(7, 17, new Mur());
+	        carte.setObstacle(7, 18, new Mur());
+	        carte.setObstacle(6, 19, new Mur());
+	        carte.setObstacle(7, 19, new Mur());
+	        carte.setObstacle(8, 19, new Mur());
+	        carte.setObstacle(6, 20, new Mur());
+	        carte.setObstacle(7, 20, new Mur());
+	        carte.setObstacle(8, 20, new Mur());
+	        carte.setObstacle(5, 21, new Mur());
+	        carte.setObstacle(6, 21, new Mur());
+	        carte.setObstacle(7, 21, new Mur());
+	        carte.setObstacle(8, 21, new Mur());
+	        carte.setObstacle(9, 21, new Mur());
+	        carte.setObstacle(13, 21, new Mur());
+	        carte.setObstacle(1, 21, new Mur());
+	        carte.setObstacle(1, 7, new Mur());
+	        carte.setObstacle(13, 7, new Mur());
+	        carte.setObstacle(1, 8, new Mur());
+	        carte.setObstacle(13, 8, new Mur());
+	        carte.setObstacle(1, 9, new Mur());
+	        carte.setObstacle(13, 9, new Mur());
+	        carte.setObstacle(1, 10, new Mur());
+	        carte.setObstacle(13, 10, new Mur());
+	        carte.setObstacle(2, 10, new Mur());
+	        carte.setObstacle(12, 10, new Mur());
+	        carte.setObstacle(1, 11, new Mur());
+	        carte.setObstacle(13, 11, new Mur());
+	        carte.setObstacle(2, 11, new Mur());
+	        carte.setObstacle(12, 11, new Mur());
+	        carte.setObstacle(1, 12, new Mur());
+	        carte.setObstacle(13, 12, new Mur());
+	        carte.setObstacle(2, 12, new Mur());
+	        carte.setObstacle(12, 12, new Mur());
+	        carte.setObstacle(1, 13, new Mur());
+	        carte.setObstacle(13, 13, new Mur());
+	        carte.setObstacle(1, 14, new Mur());
+	        carte.setObstacle(13, 14, new Mur());
+	        carte.setObstacle(1, 15, new Mur());
+	        carte.setObstacle(13, 15, new Mur());
+	        //EAU
+	        carte.setObstacle(6, 11, new Eau());
+	        carte.setObstacle(8, 11, new Eau());
+	        carte.setObstacle(7, 12, new Eau());
+	        carte.setObstacle(7, 10, new Eau());
+	        //PASTILLE
+	        PastilleEnergetique pastille1 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille1.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(4, 11, pastille1);
+	    	PastilleEnergetique pastille2 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille2.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(10, 11, pastille2);
+	        //APPARITION
+	    	List<Coordonnee> listeCoordonneeApparition = new ArrayList<>();
+	    	listeCoordonneeApparition.add(new Coordonnee(3, 2));
+	    	listeCoordonneeApparition.add(new Coordonnee(3, 20));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 2));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 20));
+	    	listeCoordonneeApparition.add(new Coordonnee(7, 8));
+	    	listeCoordonneeApparition.add(new Coordonnee(7, 14));
+	    	carte.setCoordonneeApparition(listeCoordonneeApparition);
+	    }
+	    //CARTE POUR HUIT JOUEURS
+	    else if (nombreEntites == 8){
+	    	carte = new Carte(23, 23, nombreVraiJoueur, plateauJeu);
+
+	    	//MUR
+	    	carte.setObstacle(0, 0, new Mur());
+	    	carte.setObstacle(1, 0, new Mur());
+	    	carte.setObstacle(2, 0, new Mur());
+	    	carte.setObstacle(7, 0, new Mur());
+	    	carte.setObstacle(8, 0, new Mur());
+	    	carte.setObstacle(9, 0, new Mur());
+	    	carte.setObstacle(10, 0, new Mur());
+	    	carte.setObstacle(11, 0, new Mur());
+	    	carte.setObstacle(12, 0, new Mur());
+	    	carte.setObstacle(13, 0, new Mur());
+	    	carte.setObstacle(14, 0, new Mur());
+	    	carte.setObstacle(15, 0, new Mur());
+	    	carte.setObstacle(20, 0, new Mur());
+	    	carte.setObstacle(21, 0, new Mur());
+	    	carte.setObstacle(22, 0, new Mur());
+	    	carte.setObstacle(0, 1, new Mur());
+	    	carte.setObstacle(8, 1, new Mur());
+	    	carte.setObstacle(9, 1, new Mur());
+	    	carte.setObstacle(10, 1, new Mur());
+	    	carte.setObstacle(11, 1, new Mur());
+	    	carte.setObstacle(12, 1, new Mur());
+	    	carte.setObstacle(13, 1, new Mur());
+	    	carte.setObstacle(14, 1, new Mur());
+	    	carte.setObstacle(22, 1, new Mur());
+	    	carte.setObstacle(0, 2, new Mur());
+	    	carte.setObstacle(8, 2, new Mur());
+	    	carte.setObstacle(9, 2, new Mur());
+	    	carte.setObstacle(10, 2, new Mur());
+	    	carte.setObstacle(11, 2, new Mur());
+	    	carte.setObstacle(12, 2, new Mur());
+	    	carte.setObstacle(13, 2, new Mur());
+	    	carte.setObstacle(14, 2, new Mur());
+	    	carte.setObstacle(22, 2, new Mur());
+	    	carte.setObstacle(10, 3, new Mur());
+	    	carte.setObstacle(11, 3, new Mur());
+	    	carte.setObstacle(12, 3, new Mur());
+	    	carte.setObstacle(4, 4, new Mur());
+	    	carte.setObstacle(5, 4, new Mur());
+	    	carte.setObstacle(17, 4, new Mur());
+	    	carte.setObstacle(18, 4, new Mur());
+	    	carte.setObstacle(4, 5, new Mur());
+	    	carte.setObstacle(5, 5, new Mur());
+	    	carte.setObstacle(6, 5, new Mur());
+	    	carte.setObstacle(16, 5, new Mur());
+	    	carte.setObstacle(17, 5, new Mur());
+	    	carte.setObstacle(18, 5, new Mur());
+	    	carte.setObstacle(5, 6, new Mur());
+	    	carte.setObstacle(17, 6, new Mur());
+	    	carte.setObstacle(0, 7, new Mur());
+	    	carte.setObstacle(22, 7, new Mur());
+	    	carte.setObstacle(0, 8, new Mur());
+	    	carte.setObstacle(1, 8, new Mur());
+	    	carte.setObstacle(2, 8, new Mur());
+	    	carte.setObstacle(20, 8, new Mur());
+	    	carte.setObstacle(21, 8, new Mur());
+	    	carte.setObstacle(22, 8, new Mur());
+	    	carte.setObstacle(0, 9, new Mur());
+	    	carte.setObstacle(1, 9, new Mur());
+	    	carte.setObstacle(2, 9, new Mur());
+	    	carte.setObstacle(20, 9, new Mur());
+	    	carte.setObstacle(21, 9, new Mur());
+	    	carte.setObstacle(22, 9, new Mur());
+	    	carte.setObstacle(0, 10, new Mur());
+	    	carte.setObstacle(1, 10, new Mur());
+	    	carte.setObstacle(2, 10, new Mur());
+	    	carte.setObstacle(3, 10, new Mur());
+	    	carte.setObstacle(19, 10, new Mur());
+	    	carte.setObstacle(20, 10, new Mur());
+	    	carte.setObstacle(21, 10, new Mur());
+	    	carte.setObstacle(22, 10, new Mur());
+	    	carte.setObstacle(0, 11, new Mur());
+	    	carte.setObstacle(1, 11, new Mur());
+	    	carte.setObstacle(2, 11, new Mur());
+	    	carte.setObstacle(3, 11, new Mur());
+	    	carte.setObstacle(19, 11, new Mur());
+	    	carte.setObstacle(20, 11, new Mur());
+	    	carte.setObstacle(21, 11, new Mur());
+	    	carte.setObstacle(22, 11, new Mur());
+	    	carte.setObstacle(0, 12, new Mur());
+	    	carte.setObstacle(1, 12, new Mur());
+	    	carte.setObstacle(2, 12, new Mur());
+	    	carte.setObstacle(3, 12, new Mur());
+	    	carte.setObstacle(19, 12, new Mur());
+	    	carte.setObstacle(20, 12, new Mur());
+	    	carte.setObstacle(21, 12, new Mur());
+	    	carte.setObstacle(22, 12, new Mur());
+	    	carte.setObstacle(0, 13, new Mur());
+	    	carte.setObstacle(1, 13, new Mur());
+	    	carte.setObstacle(2, 13, new Mur());
+	    	carte.setObstacle(20, 13, new Mur());
+	    	carte.setObstacle(21, 13, new Mur());
+	    	carte.setObstacle(22, 13, new Mur());
+	    	carte.setObstacle(0, 14, new Mur());
+	    	carte.setObstacle(1, 14, new Mur());
+	    	carte.setObstacle(2, 14, new Mur());
+	    	carte.setObstacle(20, 14, new Mur());
+	    	carte.setObstacle(21, 14, new Mur());
+	    	carte.setObstacle(22, 14, new Mur());
+	    	carte.setObstacle(0, 15, new Mur());
+	    	carte.setObstacle(22, 15, new Mur());
+	    	carte.setObstacle(5, 16, new Mur());
+	    	carte.setObstacle(17, 16, new Mur());
+	    	carte.setObstacle(4, 17, new Mur());
+	    	carte.setObstacle(5, 17, new Mur());
+	    	carte.setObstacle(6, 17, new Mur());
+	    	carte.setObstacle(16, 17, new Mur());
+	    	carte.setObstacle(17, 17, new Mur());
+	    	carte.setObstacle(18, 17, new Mur());
+	    	carte.setObstacle(4, 18, new Mur());
+	    	carte.setObstacle(5, 18, new Mur());
+	    	carte.setObstacle(17, 18, new Mur());
+	    	carte.setObstacle(18, 18, new Mur());
+	    	carte.setObstacle(10, 19, new Mur());
+	    	carte.setObstacle(11, 19, new Mur());
+	    	carte.setObstacle(12, 19, new Mur());
+	    	carte.setObstacle(0, 20, new Mur());
+	    	carte.setObstacle(8, 20, new Mur());
+	    	carte.setObstacle(9, 20, new Mur());
+	    	carte.setObstacle(10, 20, new Mur());
+	    	carte.setObstacle(11, 20, new Mur());
+	    	carte.setObstacle(12, 20, new Mur());
+	    	carte.setObstacle(13, 20, new Mur());
+	    	carte.setObstacle(14, 20, new Mur());
+	    	carte.setObstacle(22, 20, new Mur());
+	    	carte.setObstacle(0, 21, new Mur());
+	    	carte.setObstacle(8, 21, new Mur());
+	    	carte.setObstacle(9, 21, new Mur());
+	    	carte.setObstacle(10, 21, new Mur());
+	    	carte.setObstacle(11, 21, new Mur());
+	    	carte.setObstacle(12, 21, new Mur());
+	    	carte.setObstacle(13, 21, new Mur());
+	    	carte.setObstacle(14, 21, new Mur());
+	    	carte.setObstacle(22, 21, new Mur());
+	    	carte.setObstacle(0, 22, new Mur());
+	    	carte.setObstacle(1, 22, new Mur());
+	    	carte.setObstacle(2, 22, new Mur());
+	    	carte.setObstacle(7, 22, new Mur());
+	    	carte.setObstacle(8, 22, new Mur());
+	    	carte.setObstacle(9, 22, new Mur());
+	    	carte.setObstacle(10, 22, new Mur());
+	    	carte.setObstacle(11, 22, new Mur());
+	    	carte.setObstacle(12, 22, new Mur());
+	    	carte.setObstacle(13, 22, new Mur());
+	    	carte.setObstacle(14, 22, new Mur());
+	    	carte.setObstacle(15, 22, new Mur());
+	    	carte.setObstacle(20, 22, new Mur());
+	    	carte.setObstacle(21, 22, new Mur());
+	    	carte.setObstacle(22, 22, new Mur());
+	    	//EAU
+	    	carte.setObstacle(8, 8, new Eau());
+	    	carte.setObstacle(9, 8, new Eau());
+	    	carte.setObstacle(8, 9, new Eau());
+	    	carte.setObstacle(9, 9, new Eau());
+	    	carte.setObstacle(13, 8, new Eau());
+	    	carte.setObstacle(14, 8, new Eau());
+	    	carte.setObstacle(13, 9, new Eau());
+	    	carte.setObstacle(14, 9, new Eau());
+	    	carte.setObstacle(8, 8, new Eau());
+	    	carte.setObstacle(9, 8, new Eau());
+	    	carte.setObstacle(8, 9, new Eau());
+	    	carte.setObstacle(11, 11, new Eau());
+	    	carte.setObstacle(8, 13, new Eau());
+	    	carte.setObstacle(9, 13, new Eau());
+	    	carte.setObstacle(8, 14, new Eau());
+	    	carte.setObstacle(9, 14, new Eau());
+	    	carte.setObstacle(13, 13, new Eau());
+	    	carte.setObstacle(14, 13, new Eau());
+	    	carte.setObstacle(13, 14, new Eau());
+	    	carte.setObstacle(14, 14, new Eau());
+	    	carte.setObstacle(3, 0, new Eau());
+	    	carte.setObstacle(4, 0, new Eau());
+	    	carte.setObstacle(5, 0, new Eau());
+	    	carte.setObstacle(6, 0, new Eau());
+	    	carte.setObstacle(16, 0, new Eau());
+	    	carte.setObstacle(17, 0, new Eau());
+	    	carte.setObstacle(18, 0, new Eau());
+	    	carte.setObstacle(19, 0, new Eau());
+	    	carte.setObstacle(0, 3, new Eau());
+	    	carte.setObstacle(22, 3, new Eau());
+	    	carte.setObstacle(0, 4, new Eau());
+	    	carte.setObstacle(22, 4, new Eau());
+	    	carte.setObstacle(0, 5, new Eau());
+	    	carte.setObstacle(22, 5, new Eau());
+	    	carte.setObstacle(0, 6, new Eau());
+	    	carte.setObstacle(22, 6, new Eau());
+	    	carte.setObstacle(0, 16, new Eau());
+	    	carte.setObstacle(22, 16, new Eau());
+	    	carte.setObstacle(0, 17, new Eau());
+	    	carte.setObstacle(22, 17, new Eau());
+	    	carte.setObstacle(0, 18, new Eau());
+	    	carte.setObstacle(22, 18, new Eau());
+	    	carte.setObstacle(0, 19, new Eau());
+	    	carte.setObstacle(22, 19, new Eau());
+	    	carte.setObstacle(3, 22, new Eau());
+	    	carte.setObstacle(4, 22, new Eau());
+	    	carte.setObstacle(5, 22, new Eau());
+	    	carte.setObstacle(6, 22, new Eau());
+	    	carte.setObstacle(16, 22, new Eau());
+	    	carte.setObstacle(17, 22, new Eau());
+	    	carte.setObstacle(18, 22, new Eau());
+	    	carte.setObstacle(19, 22, new Eau());
+	    	//PASTILLE
+	        PastilleEnergetique pastille1 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille1.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(10, 11, pastille1);
+	    	PastilleEnergetique pastille2 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille2.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(12, 11, pastille2);
+	    	PastilleEnergetique pastille3 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille3.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(11, 10, pastille3);
+	    	PastilleEnergetique pastille4 = new PastilleEnergetique(GameSettings.ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_MAX_ENERGIE_PASTILLE, GameSettings.DELAI_TOUR_ENERGIE_PASTILLE);
+	    	pastille4.ajouterObserveur(plateauJeu);
+	    	carte.setObjet(11, 12, pastille4);
+	    	//APPARITION
+	    	List<Coordonnee> listeCoordonneeApparition = new ArrayList<>();
+	    	listeCoordonneeApparition.add(new Coordonnee(2, 2));
+	    	listeCoordonneeApparition.add(new Coordonnee(20, 2));
+	    	listeCoordonneeApparition.add(new Coordonnee(2, 20));
+	    	listeCoordonneeApparition.add(new Coordonnee(20, 20));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 6));
+	    	listeCoordonneeApparition.add(new Coordonnee(6, 11));
+	    	listeCoordonneeApparition.add(new Coordonnee(16, 11));
+	    	listeCoordonneeApparition.add(new Coordonnee(11, 16));
+	    	carte.setCoordonneeApparition(listeCoordonneeApparition);
+	    }
+
+	    //PERMET DE DEFINIR DES INFOS IMPORTANTES POUR LA CREATION DES COMBATTANTS (bot comme joueurs)
+	    carte.finition(nombreEntites, listeTypeVraiJoueur, listeNomVraiJoueur);
+	 
+	    return carte;
+	}
+}

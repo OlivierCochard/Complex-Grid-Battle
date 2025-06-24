@@ -1,0 +1,123 @@
+<project name="entitesJeu-build" default="compile">
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="dist"/>
+    </target>
+
+    <target name="copy-jar" depends="clean">
+        <mkdir dir="dist/lib"/>
+        <copy file="../outilsJeu/dist/outilsJeu.jar" tofile="dist/lib/outilsJeu.jar"/>
+    </target>
+
+    <target name="compile" depends="copy-jar">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src/entitesJeu" destdir="build/classes" includeantruntime="false">
+            <classpath>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="compileTest" depends="compile">
+        <mkdir dir="build/tests"/>
+        <javac srcdir="test/entitesJeu" destdir="build/tests" includeantruntime="false">
+            <classpath>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+                <pathelement path="./build/classes"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compileTest">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/entitesJeu.jar" basedir="build/classes/"/>
+    </target>
+
+    <target name="all" depends="jar"/>
+
+    <target name="runTests" depends="all">
+        <echo message="Exécution de tous les tests..."/>
+        <java classname="entitesJeu.EntiteTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+
+        <java classname="entitesJeu.obstacles.ObstacleTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.obstacles.CombattantTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.obstacles.CombattantFactoryTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.obstacles.EauTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.obstacles.MurTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+
+        <java classname="entitesJeu.objets.ObjetTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.objets.MineTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.objets.MineProxyTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.objets.BombeTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <java classname="entitesJeu.objets.PastilleEnergetiqueTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+                <pathelement path="./dist/lib/outilsJeu.jar"/>
+            </classpath>
+        </java>
+        <echo message="Tous les tests d'entitesJeu sont passés!!!"/>
+    </target>
+
+</project>

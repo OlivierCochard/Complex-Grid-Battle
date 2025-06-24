@@ -1,0 +1,39 @@
+<project name="outilsJeu-build" default="compile">
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="dist"/>
+    </target>
+    
+    <target name="compile" depends="clean">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src/outilsJeu" destdir="build/classes" includeantruntime="false"/>
+    </target>
+
+    <target name="compileTest" depends="compile">
+        <mkdir dir="build/tests"/>
+        <javac srcdir="test/outilsJeu" destdir="build/tests" includeantruntime="false">
+            <classpath>
+                <pathelement path="./build/classes"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compileTest">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/outilsJeu.jar" basedir="build/classes/"></jar>
+    </target>
+
+    <target name="all" depends="jar"/>
+
+    <target name="runTests" depends="all">
+        <echo message="Exécution de tous les tests..."/>
+        <java classname="outilsJeu.ObservationTest" fork="true">
+            <classpath>
+                <pathelement path="./build/classes"/>
+                <pathelement path="./build/tests"/>
+            </classpath>
+        </java>
+    </target>
+
+</project>
